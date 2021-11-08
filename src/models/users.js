@@ -14,7 +14,17 @@ const findUser = async (email) => {
   return user;
 };
 
+const createAdmin = async (addAdmin, user) => {
+  if (user.role !== 'admin') {
+    const err = new Error('Only admins can register new admins');
+    err.statusCode = 403;
+    return err;
+  }
+  return user.createAdmin(addAdmin);
+};
+
 module.exports = {
   createUser,
   findUser,
+  createAdmin,
 };
