@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const model = require('../models/users');
-const validation = require('../services/authorization');
 const connection = require('../models/connection');
 const {
   HTTP_OK_STATUS,
