@@ -1,37 +1,31 @@
 const jwt = require('jsonwebtoken');
-const { users } = require('../models/users');
+const users = require('../models/users');
 
 const secret = '123deOliveira4';
 const ID = '_id';
 
 const emailValidator = (email) => {
   const emailRegex = /^[0-9a-zA-Z._-]+@[a-z]*mail\.com(\.[a-z]{2})?$/;
-
   return emailRegex.test(email);
 };
 
-const login = async (user) => {
-  if (!emailValidator(user.email)) {
+const login = async (email) => {
+  if (!emailValidator(email)) {
     const err = new Error('Incorrect username or password');
-
     err.statusCode = 401;
-
     return err;
   }
 
-const loginOk = await users.findUser(user);
-
+const loginOk = await users.findUser(email);
   if (!loginOk) {
     const err = new Error('Incorrect username or password');
-
     err.statusCode = 401;
-
     return err;
   }
 
   const payload = {
     userId: loginOk[ID],
-    email: user.email,
+    email,
     role: loginOk.role,
   };
 

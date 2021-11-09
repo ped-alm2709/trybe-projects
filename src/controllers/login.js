@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const model = require('../models/users');
 const validation = require('../services/authorization');
+const connection = require('../models/connection');
 const {
   HTTP_OK_STATUS,
   HTTP_UNAUTHORIZED_STATUS,
@@ -11,15 +12,14 @@ const SECRET = '123456';
 
 const login = async (req, res) => {
   try {
-    const { error } = validation.login(req.body);
-    if (error) {
-      return res.status(HTTP_UNAUTHORIZED_STATUS).json({ message: 'All fields must be filled' });
-    }
     const { email, password } = req.body;
-    const verifyEmail = validation.emailValidator(email, password);
-    if (verifyEmail) {
-      return res.status(HTTP_UNAUTHORIZED_STATUS).json({ message: verifyEmail.message });
-    }
+    const db = await connection();
+    const confirmUser = await db.collection('users').findOne({ email });
+    if (!confirmUser || confirmUser.email !== email || confirmUser.password !== password) {
+    return res
+    .status(HTTP_UNAUTHORIZED_STATUS)
+    .json({ message: 'Incorrect username or password' });
+  }
     const user = await model.findUser(email);
     const { _id, email: alias, role } = user;
     const payload = { _id, alias, role };
