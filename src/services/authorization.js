@@ -1,8 +1,6 @@
-const jwt = require('jsonwebtoken');
 const users = require('../models/users');
-
-const secret = '123deOliveira4';
-const ID = '_id';
+const { generateToken } = require('../middlewares/token');
+const { HTTP_UNAUTHORIZED_STATUS } = require('../controllers/status');
 
 const emailValidator = (email) => {
   const emailRegex = /^[0-9a-zA-Z._-]+@[a-z]*mail\.com(\.[a-z]{2})?$/;
@@ -12,26 +10,17 @@ const emailValidator = (email) => {
 const login = async (email) => {
   if (!emailValidator(email)) {
     const err = new Error('Incorrect username or password');
-    err.statusCode = 401;
+    err.statusCode = HTTP_UNAUTHORIZED_STATUS;
     return err;
   }
-
-const loginOk = await users.findUser(email);
-  if (!loginOk) {
-    const err = new Error('Incorrect username or password');
-    err.statusCode = 401;
-    return err;
-  }
-
-  const payload = {
-    userId: loginOk[ID],
-    email,
-    role: loginOk.role,
-  };
-
-  const token = jwt.sign(payload, secret);
-
-  return { token };
+  const loginOk = await users.findUser(email);
+    if (!loginOk) {
+      const err = new Error('Incorrect username or password');
+      err.statusCode = HTTP_UNAUTHORIZED_STATUS;
+      return err;
+    }
+    const tokenCreated = generateToken(loginOk);
+    return tokenCreated;
 };
 
 const createAdmin = async (addAdmin, user) => {

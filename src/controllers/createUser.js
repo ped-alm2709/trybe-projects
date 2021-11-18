@@ -29,7 +29,7 @@ const createUser = async (req, res) => {
   const registerNewUser = await model.createUser(name, email, password);
   const { password: _, ...userData } = registerNewUser;
 
-  res.status(HTTP_CREATED_STATUS).json({ user: { ...userData, role: 'user' } });
+  return res.status(HTTP_CREATED_STATUS).json({ user: { ...userData, role: 'user' } });
 };
 
 module.exports = createUser;
