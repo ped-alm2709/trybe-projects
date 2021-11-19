@@ -3,8 +3,7 @@ const { findEmail } = require('../models/users');
 const { badRequest, conflict } = require('../utils/messages');
 
 const verifyEmail = async (email) => {
-  const schema = Joi.string().not().empty().email()
-    .required();
+  const schema = Joi.string().required().email();
 
   const { error } = schema.validate(email);
 

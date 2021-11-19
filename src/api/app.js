@@ -16,12 +16,11 @@ app.get('/', (request, response) => {
 });
 // Não remover esse end-point, ele é necessário para o avaliador
 
-app.use('/teste', (req, res) => res.send('funfando'));
-// app.use('/users', usersRoutes);
-// app.use('/login', loginRoute);
-// app.use('/recipes', recipesRoutes);
+app.use('/users', usersRoutes);
+app.use('/login', loginRoute);
+app.use('/recipes', recipesRoutes);
 // // ajuda de Anderson Silva - Turma 11
-// app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
+app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
 
 // middleware para tratamento de erros
 app.use((err, _req, res, _next) => {

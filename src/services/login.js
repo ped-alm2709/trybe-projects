@@ -4,9 +4,9 @@ const createToken = require('../utils/createToken');
 const { STATUS_OK } = require('../utils/statusSuccess');
 
 const login = async (email, password) => {
-  const verifyEmpty = await verifyMissingDataLogin(email, password);
+  const verifyEmpty = verifyMissingDataLogin(email, password);
   const validateLogin = await verifyLogin(verifyEmpty);
-  const token = await createToken(validateLogin);
+  const token = createToken(validateLogin);
   return { status: STATUS_OK, message: { token } };
 };
 

@@ -3,9 +3,8 @@ const { filledFields } = require('../utils/messages');
 
 const verifyMissingDataLogin = (email, password) => {
   const schema = Joi.object({
-    email: Joi.string().not().empty().email()
-      .required(),
-    password: Joi.string().not().empty().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
   });
 
   const { error } = schema.validate({ email, password });

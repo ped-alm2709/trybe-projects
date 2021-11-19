@@ -7,7 +7,7 @@ const {
   editRecipe,
   deleteRecipe,
 } = require('../controllers/recipes');
-const { uploadImg } = require('../controllers/uploads');
+const uploadImg = require('../controllers/uploads');
 
 const router = express.Router();
 
