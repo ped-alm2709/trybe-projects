@@ -5,6 +5,7 @@ const {
   findRecipeById,
   editRecipe,
   deleteRecipe,
+  uploadImgModel,
 } = require('../models/recipes');
 const { notFound } = require('../utils/messages');
 const { CREATED, STATUS_OK, NO_CONTENT } = require('../utils/statusSuccess');
@@ -38,10 +39,17 @@ const deleted = async (id) => {
   return { status: NO_CONTENT, message: '' };
 };
 
+const uploadImgService = async (id) => {
+  const recipe = await uploadImgModel(id);
+  if (!recipe) return null;
+  return findRecipeById(id);
+};
+
 module.exports = {
   create,
   getAll,
   findRecipe,
   update,
   deleted,
+  uploadImgService,
 };

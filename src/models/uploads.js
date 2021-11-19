@@ -11,8 +11,6 @@ const insertImage = async (id) => {
       { $set: { image } },
       { returnOriginal: false },
     );
-
-  // console.log(findRecipe.value);
   return findRecipe.value;
 };
 

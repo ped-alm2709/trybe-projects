@@ -1,5 +1,5 @@
 const upload = require('../utils/upload');
-const { update } = require('../services/upload');
+const update = require('../services/upload');
 
 const uploadImg = [
   upload.single('image'),

@@ -1,4 +1,12 @@
-const { create, getAll, findRecipe, update, deleted } = require('../services/recipes');
+const {
+  create,
+  getAll,
+  findRecipe,
+  update,
+  deleted,
+  uploadImgService,
+} = require('../services/recipes');
+// const upload = require('../utils/upload');
 
 const createRecipe = async (req, res, next) => {
   const { user } = req;
@@ -61,10 +69,17 @@ const deleteRecipe = async (req, res, next) => {
   }
 };
 
+const uploadImgController = async (req, res) => {
+  const { id } = req.params;
+  const recipe = await uploadImgService(id);
+  return res.status(200).json(recipe);
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
   getRecipeById,
   editRecipe,
   deleteRecipe,
+  uploadImgController,
 };

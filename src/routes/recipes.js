@@ -6,8 +6,10 @@ const {
   getRecipeById,
   editRecipe,
   deleteRecipe,
+  uploadImgController,
 } = require('../controllers/recipes');
-const uploadImg = require('../controllers/uploads');
+const uploadImg = require('../utils/upload');
+// const uploadImg = require('../controllers/uploads');
 
 const router = express.Router();
 
@@ -16,6 +18,6 @@ router.get('/', getAllRecipes);
 router.get('/:id', getRecipeById);
 router.put('/:id', verifyToken, editRecipe);
 router.delete('/:id', verifyToken, deleteRecipe);
-router.put('/:id/image', verifyToken, uploadImg);
+router.put('/:id/image', verifyToken, uploadImg, uploadImgController);
 
 module.exports = router;
