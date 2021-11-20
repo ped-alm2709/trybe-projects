@@ -1,4 +1,4 @@
-const { insertImage } = require('../models/uploads');
+const insertImage = require('../models/uploads');
 const { STATUS_OK } = require('../utils/statusSuccess');
 
 const update = async (id) => {
