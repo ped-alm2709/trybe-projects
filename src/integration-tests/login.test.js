@@ -5,9 +5,13 @@ const { expect } = chai;
 const sinon = require('sinon');
 const server = require('../api/app');
 const { MongoClient } = require('mongodb');
-const { getConnection } = require('./connectionMocks');
-const { userObj, emailError,
-  passwordError, correctLogin } = require('../utils/mocksObjects');
+const getConnection = require('./connectionMocks');
+const {
+  userObj,
+  emailError,
+  passwordError,
+  correctLogin
+} = require('../utils/mocksObjects');
 
 describe('POST /login', () => {
   let connectionMock;
@@ -51,7 +55,7 @@ describe('POST /login', () => {
     after(async () => {
       const usersCollection = connectionMock.db('Cookmaster').collection('users');
       await usersCollection.deleteOne({
-        email: 'andy@teste.com'
+        email: 'pedro@teste.com'
       });
     })
 
@@ -78,7 +82,7 @@ describe('POST /login', () => {
     after(async () => {
       const usersCollection = connectionMock.db('Cookmaster').collection('users');
       await usersCollection.deleteOne({
-        email: 'andy@teste.com'
+        email: 'pedro@teste.com'
       });
     })
 
@@ -105,7 +109,7 @@ describe('POST /login', () => {
     after(async () => {
       const usersCollection = connectionMock.db('Cookmaster').collection('users');
       await usersCollection.deleteOne({
-        email: 'andy@teste.com'
+        email: 'pedro@teste.com'
       });
     });
 

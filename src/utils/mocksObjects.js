@@ -1,34 +1,34 @@
 const userObj = {
-  name: 'Andy Silva',
-  email: 'andy@teste.com',
-  password: 'senhaSuperSecretaAndy',
+  name: 'Pedro Almeida',
+  email: 'pedro@teste.com',
+  password: '123deOliveira4',
 };
 
 const adminObj = {
-  name: 'Andy admin',
-  email: 'andyAdmin@teste.com',
-  password: 'senhaSuperSecretaAndyAdmin',
+  name: 'pedro admin',
+  email: 'pedroadm@teste.com',
+  password: '123deOliveira45',
   role: 'admin',
 };
 
 const emailError = {
-  email: 'and@teste.com',
-  password: 'senhaSuperSecretaAndy',
+  email: 'ped@teste.com',
+  password: '123deOliveira4',
 };
 
 const passwordError = {
-  email: 'andy@teste.com',
+  email: 'pedro@teste.com',
   password: 'senhaSuperSecreta',
 };
 
 const correctLogin = {
-  email: 'andy@teste.com',
-  password: 'senhaSuperSecretaAndy',
+  email: 'pedro@teste.com',
+  password: '123deOliveira4',
 };
 
 const correctLoginAdmin = {
-  email: 'andyAdmin@teste.com',
-  password: 'senhaSuperSecretaAndyAdmin',
+  email: 'pedroadm@teste.com',
+  password: '123deOliveira4A5',
 };
 
 const recipeObj = {
