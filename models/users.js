@@ -8,6 +8,5 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Users',
     timestamps: false,
   });
-  console.log('rodou modelo ==> ', sequelize.models);
   return User;
 };

@@ -3,8 +3,8 @@ const newToken = require('../authentications/createToken');
 
 const createUserService = async (body) => {
   const { displayName, email, password, image } = body;
-  await Users.create({ displayName, email, password, image });
-  const token = newToken(email);
+  const newUser = await Users.create({ displayName, email, password, image });
+  const token = newToken({ email, id: newUser.id });
   return token;
 };
 
