@@ -1,11 +1,15 @@
-const loginUser = async (req, res) => {
+const userService = require("../services/userService");
+
+const login = async (req, res) => {
   try {
     const response = await userService.login(req.body);
 
-    if (response.error) {
-      return res.status(400).json({ error: response.error });
-    }
+    res.status(200).json({ token: response });
+  } catch (error) {
+    res.status(404).json({ error: error.message });
+  }
+};
 
-    res.status(200)
-  } catch (error) {}
+module.exports = {
+  login,
 };
