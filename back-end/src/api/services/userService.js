@@ -1,7 +1,7 @@
-const md5 = require("md5");
-const jwt = require("jsonwebtoken");
+const md5 = require('md5');
+const jwt = require('jsonwebtoken');
 
-const User = require("../../database/models").user;
+const User = require('../../database/models').user;
 
 const { SECRET_KEY } = process.env;
 
@@ -20,12 +20,12 @@ const validPassword = async (password, hashedPassword) => {
 const login = async ({ email, password }) => {
   const user = await getUserByEmail(email);
 
-  if (!user) throw new Error("Usuário ou senha incorretos");
+  if (!user) throw new Error('Usuário ou senha incorretos');
 
   const { password: userPassword, id, name } = user;
 
   if (!validPassword(password, userPassword)) {
-    throw new Error("Senha incorreta");
+    throw new Error('Senha incorreta');
   }
 
   const token = createToken(name, email, id);
