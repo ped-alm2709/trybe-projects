@@ -17,6 +17,8 @@ function Register() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState(false);
 
+  const history = useHistory();
+
   const {
     name,
     email,
