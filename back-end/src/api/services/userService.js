@@ -37,7 +37,7 @@ const login = async ({ email, password }) => {
 
 const register = async ({ email, name, password }) => {
   const user = await getUserByEmail(email);
-  if(user) throw new Error('Usuário já cadastrado');
+  if (user) throw new Error('Usuário já cadastrado');
 
   const hashedPassword = hashPassword(password);
   User.create({ email, name, password: hashedPassword, role: 'customer' });
@@ -46,9 +46,9 @@ const register = async ({ email, name, password }) => {
   const token = createToken(email, id);
   
   return token;
-}
+};
 
 module.exports = {
   login,
-  register
+  register,
 };
