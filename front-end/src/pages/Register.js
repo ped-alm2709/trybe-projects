@@ -27,6 +27,8 @@ function Register() {
     setEmail,
     setPassword } = useContext(ContextRegister);
 
+  const history = useHistory();
+
   useEffect(() => {
     const isValid = () => {
       const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
