@@ -25,7 +25,7 @@ function Register() {
     setEmail,
     setPassword } = useContext(ContextRegister);
 
-   const history = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     const isValid = () => {
@@ -44,11 +44,11 @@ function Register() {
     isValid();
   }, [email, name, password, setIsDisabled]);
 
-   const setToken = (token) => {
+  const setToken = (token) => {
     localStorage.setItem('token', JSON.stringify(token));
     history.push({ pathname: '/customer/products' });
   };
-  
+
   const handleSubmitRegister = async () => {
     const create = await createUser({ name, email, password });
     if (!create) return setErrorMsg(true);
