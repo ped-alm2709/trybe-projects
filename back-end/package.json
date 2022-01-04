@@ -2,7 +2,7 @@
   "name": "delivery-app-back-end",
   "version": "0.1.0",
   "description": "Back-end do projeto App de Delivery",
-  "main": "./src/api/server.js",
+  "main": "./src/api/app.js",
   "engines": {
     "node": ">=14.0.0"
   },
