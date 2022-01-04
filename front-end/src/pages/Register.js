@@ -1,6 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-// import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 import ContextRegister from '../context/ContextRegister';
+
+const API_URL = 'http://localhost:3001/';
+
+const createUser = (user) => {
+  try {
+    return axios.post(`${API_URL}register`, user);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 function Register() {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -14,32 +25,30 @@ function Register() {
     setEmail,
     setPassword } = useContext(ContextRegister);
 
-  // const history = useHistory();
+   const history = useHistory();
 
   useEffect(() => {
     const isValid = () => {
       const emailValid = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-      const min = 6;
-      const max = 12;
+      const min = 5;
+      const max = 11;
       const nameValid = name.length > max;
-      const passwordValid = password.length >= min;
+      const passwordValid = password.length > min;
 
-      if (emailValid && nameValid) {
-        if (passwordValid) {
-          setIsDisabled(false);
-        }
+      if (emailValid && nameValid && passwordValid) {
+        setIsDisabled(false);
       } else {
         setIsDisabled(true);
       }
     };
     isValid();
-  }, [email, name, password, isDisabled]);
+  }, [email, name, password, setIsDisabled]);
 
-  /* const setToken = (token) => {
+   const setToken = (token) => {
     localStorage.setItem('token', JSON.stringify(token));
-    history.push({ patchname: '/customer/products' });
+    history.push({ pathname: '/customer/products' });
   };
-  */
+  
   const handleSubmitRegister = async () => {
     const create = await createUser({ name, email, password });
     if (!create) return setErrorMsg(true);
