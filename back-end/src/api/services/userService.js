@@ -17,6 +17,8 @@ const validPassword = async (password, hashedPassword) => {
   return hashPassword === hashedPassword;
 };
 
+const hashPassword = (password) => md5(password);
+
 const login = async ({ email, password }) => {
   const user = await getUserByEmail(email);
 
@@ -33,6 +35,20 @@ const login = async ({ email, password }) => {
   return token;
 };
 
+const register = async ({ email, name, password }) => {
+  const user = await getUserByEmail(email);
+  if(user) throw new Error('Usuário já cadastrado');
+
+  const hashedPassword = hashPassword(password);
+  User.create({ email, name, password: hashedPassword, role: 'customer' });
+
+  const { id } = getUserByEmail(email);
+  const token = createToken(email, id);
+  
+  return token;
+}
+
 module.exports = {
   login,
+  register
 };
