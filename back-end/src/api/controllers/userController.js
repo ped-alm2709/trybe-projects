@@ -13,7 +13,7 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   try {
     const response = await userService.register(req.body);
-
+  
     res.status(201).json({ token: response });
   } catch (error) {
     res.status(409).json({ error: error.message });

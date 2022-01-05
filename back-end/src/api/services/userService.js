@@ -1,12 +1,12 @@
-const md5 = require('md5');
-const jwt = require('jsonwebtoken');
+const md5 = require("md5");
+const jwt = require("jsonwebtoken");
 
-const User = require('../../database/models').user;
+const User = require("../../database/models").user;
 
 const { SECRET_KEY } = process.env;
 
-const createToken = (name, email, id) => {
-  const token = jwt.sign({ user: { name, email, id } }, SECRET_KEY);
+const createToken = (name, email) => {
+  const token = jwt.sign({ user: { name, email } }, SECRET_KEY);
   return token;
 };
 
@@ -22,29 +22,27 @@ const hashPassword = (password) => md5(password);
 const login = async ({ email, password }) => {
   const user = await getUserByEmail(email);
 
-  if (!user) throw new Error('Usuário ou senha incorretos');
+  if (!user) throw new Error("Usuário ou senha incorretos");
 
-  const { password: userPassword, id, name } = user;
+  const { password: userPassword, name } = user;
 
   if (!validPassword(password, userPassword)) {
-    throw new Error('Senha incorreta');
+    throw new Error("Senha incorreta");
   }
 
-  const token = createToken(name, email, id);
+  const token = createToken(name, email);
 
   return token;
 };
 
 const register = async ({ email, name, password }) => {
   const user = await getUserByEmail(email);
-  if (user) throw new Error('Usuário já cadastrado');
+  if (user) throw new Error("Usuário já cadastrado");
 
   const hashedPassword = hashPassword(password);
-  User.create({ email, name, password: hashedPassword, role: 'customer' });
+  User.create({ email, name, password: hashedPassword, role: "customer" });
 
-  const { id } = getUserByEmail(email);
-  const token = createToken(email, id);
-  
+  const token = createToken(name, email);
   return token;
 };
 

@@ -48,7 +48,6 @@ function Register() {
     try {
       const create = await createUser({ name, email, password });
       setToken(create.token);
-      return create;
     } catch (error) {
       setErrorMsg(true);
     }
