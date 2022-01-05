@@ -11,16 +11,7 @@ function Register() {
 
   const API_URL = 'http://localhost:3001/';
 
-  const createUser = (user) => {
-    try {
-      return axios.post(`${API_URL}register`, user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const {
-    name, email, password, setName, setEmail, setPassword } = useContext(ContextRegister);
+  const history = useHistory();
 
   useEffect(() => {
     const isValid = () => {
