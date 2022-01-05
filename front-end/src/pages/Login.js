@@ -17,13 +17,9 @@ function Login() {
 
   const API_URL = 'http://localhost:3001/';
 
-  const loginUser = (login) => {
-    try {
-      const response = axios.post(`${API_URL}login`, login);
+  const loginUser = async (login) => {
+      const response = await axios.post(`${API_URL}login`, login);
       return response;
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   useEffect(() => {
