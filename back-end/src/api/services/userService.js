@@ -9,32 +9,25 @@ const createToken = (name, email) => jwt.sign({ user: { name, email } }, SECRET_
 
 const getUserByEmail = async (email) => User.findOne({ where: { email } });
 
-const validPassword = async (password, hashedPassword) => {
-  const hashPassword = md5(password);
-  return hashPassword === hashedPassword;
-};
-
 const hashPassword = (password) => md5(password);
 
 const login = async ({ email, password }) => {
-  const user = await getUserByEmail(email);
+  const user = await User.findOne({ where: { email, password: md5(password) } });
 
-  if (!user) throw new Error('Usuário ou senha incorretos');
-
-  const { password: userPassword, name } = user;
-
-  if (!validPassword(password, userPassword)) {
-    throw new Error('Senha incorreta');
+  if (!user) {
+    return { error: 'Usuário ou senha inválidos' };
   }
 
-  const token = createToken(name, email);
+  const token = createToken(user.name, email);
 
   return token;
 };
 
 const register = async ({ email, name, password }) => {
   const user = await getUserByEmail(email);
-  if (user) throw new Error('Usuário já cadastrado');
+  if (user) {
+    return { error: 'Usuário cadastrado' };
+  }
 
   const hashedPassword = hashPassword(password);
   User.create({ email, name, password: hashedPassword, role: 'customer' });
