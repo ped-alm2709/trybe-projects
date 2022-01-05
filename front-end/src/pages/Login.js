@@ -18,8 +18,8 @@ function Login() {
   const API_URL = 'http://localhost:3001/';
 
   const loginUser = async (login) => {
-      const response = await axios.post(`${API_URL}login`, login);
-      return response;
+    const response = await axios.post(`${API_URL}login`, login);
+    return response;
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function Login() {
       const { data } = await loginUser({ email, password });
       localStorage.setItem('token', data.token);
       return history.push({ pathname: roles[data.role] || '/customer/products' });
-    } catch (err) {
+    } catch (error) {
       setErrorMsg(true);
     }
   };
