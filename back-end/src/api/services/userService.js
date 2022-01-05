@@ -5,10 +5,7 @@ const User = require('../../database/models').user;
 
 const { SECRET_KEY } = process.env;
 
-const createToken = (name, email) => {
-  const token = jwt.sign({ user: { name, email } }, SECRET_KEY);
-  return token;
-};
+const createToken = (name, email) => jwt.sign({ user: { name, email } }, SECRET_KEY);
 
 const getUserByEmail = async (email) => User.findOne({ where: { email } });
 
