@@ -12,28 +12,36 @@ const getUserByEmail = async (email) => User.findOne({ where: { email } });
 const hashPassword = (password) => md5(password);
 
 const login = async ({ email, password }) => {
-  const user = await User.findOne({ where: { email, password: md5(password) } });
+  try {
+    const user = await User.findOne({ where: { email, password: md5(password) } });
 
-  if (!user) {
-    return { error: 'Usuário ou senha inválidos' };
+    if (!user) {
+      return { error: 'Usuário ou senha inválidos' };
+    }
+  
+    const token = createToken(user.name, email);
+  
+    return token;
+  } catch (error) {
+    return { error: 'Usuário ou senha inválidos' }; 
   }
-
-  const token = createToken(user.name, email);
-
-  return token;
 };
 
 const register = async ({ email, name, password }) => {
-  const user = await getUserByEmail(email);
-  if (user) {
+  try {
+    const user = await getUserByEmail(email);
+    if (user) {
+      return { error: 'Usuário cadastrado' };
+    }
+  
+    const hashedPassword = hashPassword(password);
+    User.create({ email, name, password: hashedPassword, role: 'customer' });
+  
+    const token = createToken(name, email);
+    return token;
+  } catch (error) {
     return { error: 'Usuário cadastrado' };
   }
-
-  const hashedPassword = hashPassword(password);
-  User.create({ email, name, password: hashedPassword, role: 'customer' });
-
-  const token = createToken(name, email);
-  return token;
 };
 
 module.exports = {
