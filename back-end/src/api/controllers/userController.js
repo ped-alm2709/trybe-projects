@@ -3,8 +3,7 @@ const userService = require('../services/userService');
 const login = async (req, res) => {
   try {
     const response = await userService.login(req.body);
-
-    res.status(200).json({ token: response });
+    return res.status(200).json({ token: response });
   } catch (error) {
     res.status(404).json({ error: error.message });
   }

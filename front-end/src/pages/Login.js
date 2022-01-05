@@ -10,6 +10,7 @@ const API_URL = 'http://localhost:3001/';
 const loginUser = (login) => {
   try {
     const response = axios.post(`${API_URL}login`, login);
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error);
