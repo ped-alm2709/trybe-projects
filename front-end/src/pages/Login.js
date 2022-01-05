@@ -5,18 +5,6 @@ import axios from 'axios';
 import ContextRegister from '../context/ContextRegister';
 import rockGlass from '../images/rockGlass.svg';
 
-const API_URL = 'http://localhost:3001/';
-
-const loginUser = (login) => {
-  try {
-    const response = axios.post(`${API_URL}login`, login);
-    console.log(response);
-    return response;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState(false);
@@ -26,6 +14,17 @@ function Login() {
   const users = localStorage.getItem('user');
 
   const history = useHistory();
+
+  const API_URL = 'http://localhost:3001/';
+
+  const loginUser = (login) => {
+    try {
+      const response = axios.post(`${API_URL}login`, login);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const isValid = () => {
@@ -41,20 +40,20 @@ function Login() {
     isValid();
   }, [email, password, setIsDisabled]);
 
-  const handleSubmitLogin = async (user) => {
+  const handleSubmitLogin = async () => {
     const roles = {
       administrator: '/admin/manage',
       seller: '/seller/orders',
     };
 
-    if (!user.email || !user.password) setErrorMsg(true);
+    if (!email || !password) setErrorMsg(true);
 
     try {
       const { data } = await loginUser({ email, password });
       localStorage.setItem('token', data.token);
       return history.push({ pathname: roles[data.role] || '/customer/products' });
     } catch (err) {
-      console.log(err);
+      setErrorMsg(true);
     }
   };
 
@@ -85,7 +84,7 @@ function Login() {
           data-testid="common_login__button-login"
           type="button"
           disabled={ isDisabled }
-          onClick={ ({ target }) => handleSubmitLogin(target.value) }
+          onClick={ () => handleSubmitLogin() }
         >
           LOGIN
         </button>

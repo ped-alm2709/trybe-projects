@@ -3,21 +3,21 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import ContextRegister from '../context/ContextRegister';
 
-const API_URL = 'http://localhost:3001/';
-
-const createUser = (user) => {
-  try {
-    return axios.post(`${API_URL}register`, user);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 function Register() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState(false);
 
   const history = useHistory();
+
+  const API_URL = 'http://localhost:3001/';
+
+  const createUser = (user) => {
+    try {
+      return axios.post(`${API_URL}register`, user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const {
     name, email, password, setName, setEmail, setPassword } = useContext(ContextRegister);
