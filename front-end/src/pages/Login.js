@@ -10,6 +10,12 @@ function Login() {
   const [errorMsg, setErrorMsg] = useState(false);
 
   const { email, password, setEmail, setPassword } = useContext(ContextRegister);
+  const {
+    email,
+    password,
+    setEmail,
+    setPassword,
+  } = useContext(ContextRegister);
 
   const users = localStorage.getItem('user');
 
