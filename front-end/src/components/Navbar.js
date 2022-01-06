@@ -4,9 +4,11 @@ import { Link, useHistory } from 'react-router-dom';
 export default function Navbar() {
   const history = useHistory();
 
+  const data = JSON.parse(localStorage.getItem('data'));
+
   const user = {
-    role: 'customer',
-    name: 'Cicrano da Silva',
+    role: data.role,
+    name: data.name,
   };
 
   const logout = () => {

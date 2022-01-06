@@ -39,15 +39,11 @@ function Register() {
     isValid();
   }, [email, name, password, setIsDisabled]);
 
-  const setToken = (token) => {
-    localStorage.setItem('token', JSON.stringify(token));
-    history.push({ pathname: '/customer/products' });
-  };
-
   const handleSubmitRegister = async () => {
     try {
-      const create = await createUser({ name, email, password });
-      setToken(create.token);
+      const { data } = await createUser({ name, email, password });
+      localStorage.setItem('data', JSON.stringify(data));
+      history.push({ pathname: '/customer/products' });
     } catch (error) {
       setErrorMsg(true);
     }
