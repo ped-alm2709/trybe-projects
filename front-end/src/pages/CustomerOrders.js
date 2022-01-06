@@ -41,9 +41,12 @@ function CustomerOrders() {
     fetchSales();
   }, [isLoading]);
 
+  // pegar a props name e colocar no Navbar para mostrar o nome do cliente logado.
+
+  if (isLoading) return <h1>Loading...</h1>;
   return (
     <div>
-      <Navbar />
+      <Navbar name={ userObj.name } />
       { renderOrders() }
     </div>
   );
