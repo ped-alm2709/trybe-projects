@@ -13,12 +13,16 @@ function Product({
   } = useContext(ContextRegister);
 
   React.useEffect(() => {
-    setTotalProducts({ ...totalProducts, [name]: total });
+    setTotalProducts({ ...totalProducts, [name]: { total, price } });
   }, [total]);
 
   return (
     <div>
-      <p data-testid={ `customer_products__element-card-price-${index}` }>{ price }</p>
+      <p
+        data-testid={ `customer_products__element-card-price-${index}` }
+      >
+        { price.replace(/\./g, ',') }
+      </p>
       <img
         data-testid={ `customer_products__img-card-bg-image-${index}` }
         src={ url }
@@ -35,6 +39,7 @@ function Product({
         </button>
         <input
           data-testid={ `customer_products__input-card-quantity-${index}` }
+          onChange={ ({ target }) => setTotal(target.value) }
           value={ total }
         />
         <button
