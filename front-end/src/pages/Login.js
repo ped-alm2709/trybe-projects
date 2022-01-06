@@ -9,7 +9,6 @@ function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState(false);
 
-  const { email, password, setEmail, setPassword } = useContext(ContextRegister);
   const {
     email,
     password,
