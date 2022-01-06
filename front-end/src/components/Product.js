@@ -5,7 +5,7 @@ import ContextRegister from '../context/ContextRegister';
 function Product({
   index, price, url_image: url, name,
 }) {
-  const [total, setTotal] = React.useState();
+  const [total, setTotal] = React.useState(0);
 
   const {
     totalProducts,
@@ -33,13 +33,16 @@ function Product({
         >
           -
         </button>
-        <p data-testid={ `customer_products__input-card-quantity-${index}` }>{ total }</p>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${index}` }
+          value={ total }
+        />
         <button
           data-testid={ `customer_products__button-card-add-item-${index}` }
           type="button"
           onClick={ () => setTotal(total + 1) }
         >
-          -
+          +
         </button>
       </div>
     </div>
