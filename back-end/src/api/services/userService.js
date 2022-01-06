@@ -11,8 +11,6 @@ const User = require('../../database/models').user;
 //   return key;
 // }
 
-const getUserByEmail = async (email) => User.findOne({ where: { email } });
-
 const hashPassword = (password) => md5(password);
 
 const login = async ({ email, password }) => {
@@ -28,8 +26,10 @@ const login = async ({ email, password }) => {
 };
 
 const register = async ({ email, name, password }) => {
-    const user = await getUserByEmail(email);
-    if (user) {
+    const userEmail = await User.findOne({ where: { email } });
+    const userName = await User.findOne({ where: { name } });
+
+    if (userEmail || userName) {
       return { error: 'Usuário cadastrado' };
     }
   
@@ -37,7 +37,7 @@ const register = async ({ email, name, password }) => {
     User.create({ email, name, password: hashedPassword, role: 'customer' });
   
     // const token = createToken(name, email);
-    return user;
+    return { email, name };
 };
 
 module.exports = {
