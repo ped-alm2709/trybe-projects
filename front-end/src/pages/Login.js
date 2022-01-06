@@ -9,7 +9,12 @@ function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState(false);
 
-  const { email, password, setEmail, setPassword } = useContext(ContextRegister);
+  const {
+    email,
+    password,
+    setEmail,
+    setPassword,
+  } = useContext(ContextRegister);
 
   const users = localStorage.getItem('user');
 
@@ -17,13 +22,9 @@ function Login() {
 
   const API_URL = 'http://localhost:3001/';
 
-  const loginUser = (login) => {
-    try {
-      const response = axios.post(`${API_URL}login`, login);
-      return response;
-    } catch (error) {
-      console.log(error);
-    }
+  const loginUser = async (login) => {
+    const response = await axios.post(`${API_URL}login`, login);
+    return response;
   };
 
   useEffect(() => {
@@ -52,7 +53,7 @@ function Login() {
       const { data } = await loginUser({ email, password });
       localStorage.setItem('token', data.token);
       return history.push({ pathname: roles[data.role] || '/customer/products' });
-    } catch (err) {
+    } catch (error) {
       setErrorMsg(true);
     }
   };
