@@ -8,7 +8,7 @@ const createToken = async (name, email) => {
   const key = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
   const token = jwt.sign({ user: { name, email } }, key);
   return token;
-}
+};
 
 const login = async ({ email, password }) => {
     const user = await User.findOne({ where: { email, password: md5(password) } });
