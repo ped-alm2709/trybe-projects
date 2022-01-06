@@ -4,7 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 export default function Navbar() {
   const history = useHistory();
 
-  const data = JSON.parse(localStorage.getItem('data'));
+  const data = JSON.parse(localStorage.getItem('user'));
 
   const user = {
     role: data.role,

@@ -42,7 +42,7 @@ function Register() {
   const handleSubmitRegister = async () => {
     try {
       const { data } = await createUser({ name, email, password });
-      localStorage.setItem('data', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data));
       history.push({ pathname: '/customer/products' });
     } catch (error) {
       setErrorMsg(true);
