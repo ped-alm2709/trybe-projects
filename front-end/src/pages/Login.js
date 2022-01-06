@@ -5,20 +5,11 @@ import axios from 'axios';
 import ContextRegister from '../context/ContextRegister';
 import rockGlass from '../images/rockGlass.svg';
 
-const API_URL = 'http://localhost:3001/';
-
-const loginUser = (login) => {
-  try {
-    return axios.post(`${API_URL}login`, login);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 function Login() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState(false);
 
+  const { email, password, setEmail, setPassword } = useContext(ContextRegister);
   const {
     email,
     password,
@@ -29,6 +20,13 @@ function Login() {
   const users = localStorage.getItem('user');
 
   const history = useHistory();
+
+  const API_URL = 'http://localhost:3001/';
+
+  const loginUser = async (login) => {
+    const response = await axios.post(`${API_URL}login`, login);
+    return response;
+  };
 
   useEffect(() => {
     const isValid = () => {
@@ -44,22 +42,26 @@ function Login() {
     isValid();
   }, [email, password, setIsDisabled]);
 
-  const handleSubmitLogin = async (user) => {
-    if (!user.email || !user.password) setErrorMsg(true);
-    const { data } = await loginUser({ email, password });
-    if (data.role === 'administrator') {
-      setToken(data);
-      return history.push({ pathname: '/admin/manage' });
+  const handleSubmitLogin = async () => {
+    const roles = {
+      administrator: '/admin/manage',
+      seller: '/seller/orders',
+    };
+
+    if (!email || !password) setErrorMsg(true);
+
+    try {
+      const { data } = await loginUser({ email, password });
+      localStorage.setItem('token', data.token);
+      return history.push({ pathname: roles[data.role] || '/customer/products' });
+    } catch (error) {
+      setErrorMsg(true);
     }
-    if (data.role === 'seller') {
-      setToken(data);
-      return history.push({ pathname: '/seller/orders' });
-    }
-    setToken(data);
-    history.push({ pathname: '/customer/products' });
   };
 
-  return users ? <Redirect to="/customer/products" /> : (
+  return users ? (
+    <Redirect to="/customer/products" />
+  ) : (
     <div>
       <span className="logo">TRYBE</span>
       <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
@@ -84,20 +86,20 @@ function Login() {
           data-testid="common_login__button-login"
           type="button"
           disabled={ isDisabled }
-          onClick={ ({ target }) => handleSubmitLogin(target.value) }
+          onClick={ () => handleSubmitLogin() }
         >
           LOGIN
         </button>
-        <button
-          type="button"
-          data-testid="common_login__button-register"
-        >
+        <button type="button" data-testid="common_login__button-register">
           <Link to="/register">Ainda não tenho conta</Link>
         </button>
-        { errorMsg && <span>Email ou senha inválidos</span> }
+        {errorMsg && (
+          <span data-testid="common_login__element-invalid-email">
+            Email ou senha inválidos
+          </span>
+        )}
       </form>
     </div>
-
   );
 }
 

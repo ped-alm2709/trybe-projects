@@ -3,29 +3,24 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import ContextRegister from '../context/ContextRegister';
 
-const API_URL = 'http://localhost:3001/';
-
-const createUser = (user) => {
-  try {
-    return axios.post(`${API_URL}register`, user);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 function Register() {
   const [isDisabled, setIsDisabled] = useState(true);
   const [errorMsg, setErrorMsg] = useState(false);
 
   const history = useHistory();
 
+  const API_URL = 'http://localhost:3001/';
+
+  const createUser = (user) => {
+    try {
+      return axios.post(`${API_URL}register`, user);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const {
-    name,
-    email,
-    password,
-    setName,
-    setEmail,
-    setPassword } = useContext(ContextRegister);
+    name, email, password, setName, setEmail, setPassword } = useContext(ContextRegister);
 
   useEffect(() => {
     const isValid = () => {
@@ -50,17 +45,18 @@ function Register() {
   };
 
   const handleSubmitRegister = async () => {
-    const create = await createUser({ name, email, password });
-    if (!create) return setErrorMsg(true);
-    setToken(create.token);
-    return create;
+    try {
+      const create = await createUser({ name, email, password });
+      setToken(create.token);
+    } catch (error) {
+      setErrorMsg(true);
+    }
   };
 
   return (
     <div>
       <h1>Cadastro</h1>
       <form>
-
         Nome:
         <input
           type="text"
@@ -68,7 +64,6 @@ function Register() {
           data-testid="common_register__input-name"
           onChange={ ({ target }) => setName(target.value) }
         />
-
         Email:
         <input
           type="email"
@@ -76,7 +71,6 @@ function Register() {
           data-testid="common_register__input-email"
           onChange={ ({ target }) => setEmail(target.value) }
         />
-
         Senha:
         <input
           type="password"
@@ -84,7 +78,6 @@ function Register() {
           data-testid="common_register__input-password"
           onChange={ ({ target }) => setPassword(target.value) }
         />
-
         <button
           data-testid="common_register__button-register"
           type="button"
@@ -93,8 +86,11 @@ function Register() {
         >
           Cadastrar
         </button>
-        { errorMsg
-        && <p data-testid="common_login__element-invalid-email">Erro ao cadastrar</p> }
+        {errorMsg && (
+          <p data-testid="common_register__element-invalid_register">
+            Erro ao cadastrar
+          </p>
+        )}
       </form>
     </div>
   );

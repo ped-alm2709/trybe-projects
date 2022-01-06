@@ -1,38 +1,39 @@
 const md5 = require('md5');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 const User = require('../../database/models').user;
 
-const { SECRET_KEY } = process.env;
-
-const createToken = (name, email, id) => {
-  const token = jwt.sign({ user: { name, email, id } }, SECRET_KEY);
+const createToken = async (name, email) => {
+  const key = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
+  const token = jwt.sign({ user: { name, email } }, key);
   return token;
-};
-
-const getUserByEmail = async (email) => User.findOne({ where: { email } });
-
-const validPassword = async (password, hashedPassword) => {
-  const hashPassword = md5(password);
-  return hashPassword === hashedPassword;
 };
 
 const login = async ({ email, password }) => {
-  const user = await getUserByEmail(email);
+    const user = await User.findOne({ where: { email, password: md5(password) } });
 
-  if (!user) throw new Error('Usuário ou senha incorretos');
+    if (!user) throw new Error('Usuário ou senha inválidos');
 
-  const { password: userPassword, id, name } = user;
+    const token = createToken(user.name, email);
 
-  if (!validPassword(password, userPassword)) {
-    throw new Error('Senha incorreta');
-  }
+    return token;
+};
 
-  const token = createToken(name, email, id);
+const register = async ({ email, name, password }) => {
+    const userEmail = await User.findOne({ where: { email } });
+    const userName = await User.findOne({ where: { name } });
 
-  return token;
+    if (userEmail || userName) throw new Error('Usuário cadastrado');
+  
+    User.create({ email, name, password: md5(password), role: 'customer' });
+  
+    const token = createToken(name, email);
+    return token;
 };
 
 module.exports = {
   login,
+  register,
 };
+//
