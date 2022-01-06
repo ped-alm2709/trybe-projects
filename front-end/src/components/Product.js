@@ -14,7 +14,7 @@ function Product({
 
   React.useEffect(() => {
     setTotalProducts({ ...totalProducts, [name]: { total, price } });
-  }, [total, name, price, setTotalProducts, totalProducts]);
+  }, [total]);
 
   return (
     <div>
