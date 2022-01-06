@@ -10,6 +10,8 @@ function ClientProducts() {
 
   const { totalProducts } = useContext(ContextRegister);
 
+  localStorage.setItem('cart', JSON.stringify(totalProducts));
+
   const drinks = Object.values(totalProducts);
   const totalPayment = drinks.reduce(
     (acc, curr) => acc + curr.total * curr.price, 0,
