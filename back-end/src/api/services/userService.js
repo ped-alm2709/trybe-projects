@@ -34,7 +34,7 @@ const register = async ({ email, name, password }) => {
     return { name, email, role: 'customer', token };
 };
 
-const getAllSellers = async () => User.findAll({ where: { role: "seller" } });
+const getAllSellers = async () => User.findAll({ where: { role: 'seller' } });
 
 module.exports = {
   login,
