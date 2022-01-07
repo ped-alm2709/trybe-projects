@@ -5,6 +5,7 @@ import './App.css';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import ClientProducts from './pages/ClientProducts';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Redirect to="/login" />
         </Route>
         <Route path="/customer/products" component={ ClientProducts } />
+        <Route path="/customer/checkout" component={ Checkout } />
       </Switch>
     </BrowserRouter>
   );
