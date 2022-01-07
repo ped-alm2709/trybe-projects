@@ -51,7 +51,7 @@ function Login() {
 
     try {
       const { data } = await loginUser({ email, password });
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data));
       return history.push({ pathname: roles[data.role] || '/customer/products' });
     } catch (error) {
       setErrorMsg(true);
