@@ -23,9 +23,7 @@ function Order(props) {
       <Link to={ `/customer/orders/${id}` }>
         <div>
           <p data-testid={ `customer_orders__element-order-id-${id}` }>
-
             { `Pedido ${id}` }
-
           </p>
         </div>
         <div>
