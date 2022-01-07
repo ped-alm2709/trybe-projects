@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 function Order(props) {
   const { order } = props;
-  const { id: orderId, date, total, status } = order;
+
+  const { id, saleDate, totalPrice, status } = order;
 
   const dateConvert = (completeDate) => {
     const dateModif = completeDate.split('T')[0];
@@ -19,32 +20,32 @@ function Order(props) {
 
   return (
     <div>
-      <Link to={ `/customer/orders/${orderId}` }>
+      <Link to={ `/customer/orders/${id}` }>
         <div>
-          <p data-testid={ `customer_orders__element-order-id-${orderId}` }>
+          <p data-testid={ `customer_orders__element-order-id-${id}` }>
 
-            { `Pedido ${orderId}` }
+            { `Pedido ${id}` }
 
           </p>
         </div>
         <div>
-          <p data-testid={ `customer_orders__element-delivery-status-${orderId}` }>
+          <p data-testid={ `customer_orders__element-delivery-status-${id}` }>
 
             { status }
 
           </p>
         </div>
         <div>
-          <p data-testid={ `customer_orders__element-order-date-${orderId}` }>
+          <p data-testid={ `customer_orders__element-order-date-${id}` }>
 
-            {dateConvert(date)}
+            {dateConvert(saleDate)}
 
           </p>
         </div>
         <div>
-          <p data-testid={ `customer_orders__element-card-price-${orderId}` }>
+          <p data-testid={ `customer_orders__element-card-price-${id}` }>
 
-            {priceConvert(total)}
+            {priceConvert(totalPrice)}
 
           </p>
         </div>
@@ -56,8 +57,8 @@ function Order(props) {
 Order.propTypes = {
   order: PropTypes.shape({
     id: PropTypes.number,
-    date: PropTypes.string,
-    total: PropTypes.string,
+    saleDate: PropTypes.string,
+    totalPrice: PropTypes.string,
     status: PropTypes.string,
   }).isRequired,
 };
