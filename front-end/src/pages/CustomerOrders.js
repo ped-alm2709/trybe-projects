@@ -7,14 +7,16 @@ import Order from '../components/Order';
 function CustomerOrders() {
   const [isLoading, setIsLoading] = useState(true);
   const { sales, setSales, userObj, setUserObj } = useContext(ContextRegister);
-  console.log(sales);
-  console.log(userObj);
-  console.log(setSales);
 
   const API_URL = 'http://localhost:3001/';
 
   const getSales = async () => {
-    const response = await axios.get(`${API_URL}/sales`);
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const response = await axios.get(`${API_URL}sales`, {
+      headers: {
+        Authorization: token,
+      },
+    });
     return response;
   };
 
@@ -23,16 +25,10 @@ function CustomerOrders() {
     return render;
   };
 
-  const filterSales = (data) => {
-    const filter = data.filter((order) => order.id === userObj.id);
-    return filter;
-  };
-
   const fetchSales = async () => {
     const salesFetch = await getSales();
-    const salesData = salesFetch.data;
-    const salesFiltered = filterSales(salesData);
-    setSales(salesFiltered);
+    const salesData = salesFetch.data.response;
+    setSales(salesData);
     setIsLoading(false);
   };
 

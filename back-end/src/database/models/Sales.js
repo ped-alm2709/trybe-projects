@@ -1,26 +1,26 @@
 module.exports = (sequelize, DataTypes) => {
-  const sale = sequelize.define(
-    "sale",
+  const sales = sequelize.define(
+    "sales",
     {
-      user_id: {
+      userId: {
         type: DataTypes.INTEGER,
         foreignKey: true,
       },
-      seller_id: {
+      sellerId: {
         type: DataTypes.INTEGER,
         foreignKey: true,
       },
-      total_price: DataTypes.DECIMAL,
-      delivery_address: DataTypes.STRING,
-      delivery_number: DataTypes.STRING,
-      sale_date: {
+      totalPrice: DataTypes.DECIMAL,
+      deliveryAddress: DataTypes.STRING,
+      deliveryNumber: DataTypes.STRING,
+      saleDate: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
       },
       status: DataTypes.STRING,
     },
-    { timestamps: false }
+    { timestamps: false, underscored: true }
   );
 
-  return sale;
+  return sales;
 };
