@@ -8,6 +8,7 @@ function Provider({ children }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [totalProducts, setTotalProducts] = useState({});
 
   const state = {
     name,
@@ -16,6 +17,8 @@ function Provider({ children }) {
     setName,
     setEmail,
     setPassword,
+    totalProducts,
+    setTotalProducts,
   };
 
   return (
