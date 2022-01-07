@@ -13,7 +13,12 @@ function Product({
   } = useContext(ContextRegister);
 
   React.useEffect(() => {
-    setTotalProducts({ ...totalProducts, [name]: { total, price } });
+    if (total === 0) {
+      delete totalProducts[name];
+      setTotalProducts({ ...totalProducts });
+    } else {
+      setTotalProducts({ ...totalProducts, [name]: { total, price } });
+    }
   }, [total]);
 
   return (
