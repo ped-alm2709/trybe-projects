@@ -39,9 +39,18 @@ function Checkout() {
     const price = products
       .reduce((acc, curr) => acc + curr[1].price * curr[1].total, 0).toFixed(2);
 
+    const cart = JSON.parse(localStorage.getItem('cart'));
+
     const sale = await axios
       .post(`${API_URL}sales`,
-        { seller: seller || 'Fulana Pereira', address, number, price, name: user.name },
+        {
+          seller: seller || 'Fulana Pereira',
+          address,
+          number,
+          price,
+          name: user.name,
+          cart,
+        },
         { headers: {
           Authorization: user.token,
         } });

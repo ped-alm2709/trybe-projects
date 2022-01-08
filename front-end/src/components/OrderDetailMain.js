@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import ContextRegister from '../context/ContextRegister';
 import OrderDetailHeader from './OrderDetailHeader';
 
 function OrderDetailMain(props) {
+  const history = useHistory();
   const [loading, setLoading] = useState(true);
 
   const {
@@ -14,7 +16,7 @@ function OrderDetailMain(props) {
 
   const { removeButton } = props;
 
-  const { products } = orderDetail;
+  const { sales } = orderDetail;
   const arrValue = [
     'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total'];
   if (removeButton) arrValue.push('Remover Item');
@@ -27,12 +29,13 @@ function OrderDetailMain(props) {
   const getSaleId = (id) => axios.get(`${API_URL}sales/${id}`);
 
   const getSale = async (orderId) => {
-    const response = await getSaleId(orderId);
-    setOrderDetail(response.data);
+    const { data: { response } } = await getSaleId(orderId);
+    setOrderDetail(response);
     setLoading(false);
   };
 
   useEffect(() => {
+    const id = history.location.pathname.split('/')[3];
     getSale(id);
   }, [loading]);
 
@@ -48,53 +51,51 @@ function OrderDetailMain(props) {
           </tr>
         </thead>
         <tbody>
-          { products.length > 1
-            ? products.map((product, index) => (
-              <tr key={ index }>
-                <td
-                  data-testid={
-                    `customer_order_details__element-order-table-item-number-${index}`
-                  }
-                >
-                  {product.id }
-                </td>
-                <td
-                  data-testid={
-                    `customer_order_details__element-order-table-name-${index}`
-                  }
-                >
-                  {product.name }
-                </td>
-                <td
-                  data-testid={
-                    `customer_order_details__element-order-table-quantity-${index}`
-                  }
-                >
-                  {product.quantity }
-                </td>
-                <td
-                  data-testid={
-                    `customer_order_details__element-order-table-sub-total-${index}`
-                  }
-                >
-                  { product.price.replace(/\./, ',') }
-                </td>
-                <td
-                  data-testid={
-                    `customer_order_details__element-order-total-price-${index}`
-                  }
-                >
-                  {priceTotal(product.price, product.quantity) }
-                </td>
-              </tr>
-            ))
-            : null }
+          {sales && sales.map((product, index) => (
+            <tr key={ index }>
+              <td
+                data-testid={
+                  `customer_order_details__element-order-table-item-number-${index}`
+                }
+              >
+                {index + 1}
+              </td>
+              <td
+                data-testid={
+                  `customer_order_details__element-order-table-name-${index}`
+                }
+              >
+                {product.name}
+              </td>
+              <td
+                data-testid={
+                  `customer_order_details__element-order-table-quantity-${index}`
+                }
+              >
+                {product.quantity}
+              </td>
+              <td
+                data-testid={
+                  `customer_order_details__element-order-table-sub-total-${index}`
+                }
+              >
+                {product.price.replace(/\./, ',')}
+              </td>
+              <td
+                data-testid={
+                  `customer_order_details__element-order-total-price-${index}`
+                }
+              >
+                {priceTotal(product.price, product.quantity)}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <p
         data-testid="customer_order_details__element-order-total-price"
       >
-        { orderDetail.total.replace(/\./, ',') }
+        {orderDetail && orderDetail.sale.totalPrice.replace(/\./, ',')}
       </p>
     </main>
   );

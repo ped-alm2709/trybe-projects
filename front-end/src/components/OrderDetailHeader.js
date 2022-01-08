@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 
 function OrderDetailHeader(props) {
   const { orderDetail } = props;
-  const { id, seller, date, status } = orderDetail;
+  const { sale, seller } = orderDetail;
+  const { id, saleDate: date, status } = sale;
 
   const dateConvert = (completeDate) => {
     const dateModif = completeDate.split('T')[0];
@@ -21,12 +22,12 @@ function OrderDetailHeader(props) {
       <h4
         data-testid="customer_order_details__element-order-details-label-seller-name"
       >
-        { `P.Vend: ${seller.name}` }
+        { `P.Vend: ${seller && seller.name}` }
       </h4>
       <h4
         data-testid="customer_order_details__element-order-details-label-order-date"
       >
-        { dateConvert(date) }
+        { date && dateConvert(date) }
       </h4>
       <h4
         data-testid="customer_order_details__element-order-details-label-delivery-status"
