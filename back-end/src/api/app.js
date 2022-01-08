@@ -12,9 +12,11 @@ app.use(cors());
 
 const user = require('./routes/users');
 const products = require('./routes/products');
+const sales = require('./routes/sales');
 
 app.use('/', user);
 app.use('/products', products);
+app.use('/sales', sales);
 
 app.listen(PORT, () => {
   console.log(`Ouvindo na porta: ${PORT}`);
