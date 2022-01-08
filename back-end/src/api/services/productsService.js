@@ -1,4 +1,4 @@
-const Products = require('../../database/models').product;
+const Products = require('../../database/models').products;
 
 const getProducts = () => {
   const allProducts = Products.findAll();

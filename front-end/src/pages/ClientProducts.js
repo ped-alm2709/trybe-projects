@@ -22,6 +22,7 @@ function ClientProducts() {
   const formatedPayment = String(totalPayment).replace(/\./g, ',');
 
   React.useEffect(() => {
+    console.log('oi');
     axios.get(`${API_URL}products`).then(({ data }) => {
       setProducts(data);
     });
