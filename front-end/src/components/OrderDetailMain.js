@@ -30,6 +30,7 @@ function OrderDetailMain(props) {
 
   const getSale = async (orderId) => {
     const { data: { response } } = await getSaleId(orderId);
+    console.log(response);
     setOrderDetail(response);
     setLoading(false);
   };
