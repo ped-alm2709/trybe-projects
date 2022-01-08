@@ -16,7 +16,10 @@ const getSaleById = async (id) => {
 
   const drinks = {};
   const product = await Products.findAll();
-  product.forEach(({ name: productName, id: productId, price }) => { drinks[productId] = { productName, price }; });
+  product.forEach(({
+    name: productName,
+    id: productId, price,
+  }) => { drinks[productId] = { productName, price }; });
 
   const sales = salesProduct.map(({ productId, quantity }) => ({
     name: drinks[productId].productName,
