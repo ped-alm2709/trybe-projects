@@ -22,7 +22,7 @@ const login = async ({ email, password }) => {
     return { name, email, role, token };
 };
 
-const register = async ({ email, name, password, role='customer' }) => {
+const register = async ({ email, name, password, role = 'customer' }) => {
     const userEmail = await User.findOne({ where: { email } });
     const userName = await User.findOne({ where: { name } });
 
