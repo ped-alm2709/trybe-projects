@@ -7,7 +7,7 @@ function UserList() {
     setUsers,
   } = useContext(ContextRegister);
 
-  console.log(users, setUsers);
+  console.log(setUsers);
 
   return (
     <div>

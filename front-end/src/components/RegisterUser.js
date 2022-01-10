@@ -7,11 +7,12 @@ function RegisterUser() {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [userType, setUserType] = React.useState('');
+  const [userType, setUserType] = React.useState('customer');
+  const [error, setError] = React.useState(false);
 
   const API_URL = 'http://localhost:3001/';
 
-  const { setUsers } = useContext(ContextRegister);
+  const { setUsers, users } = useContext(ContextRegister);
 
   React.useEffect(() => {
     axios.get(`${API_URL}users`).then(({ data }) => setUsers(data));
@@ -34,7 +35,26 @@ function RegisterUser() {
     isValid();
   }, [email, name, password, setDisabled]);
 
-  console.log(email, name, password);
+  const createUser = async () => {
+    const { token } = JSON.parse(localStorage.getItem('user'));
+
+    try {
+      const response = await axios.post(`${API_URL}register/adm`, {
+        email,
+        name,
+        password,
+        role: userType,
+      }, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      const { data } = response;
+      setUsers([...users, data]);
+    } catch (err) {
+      setError(true);
+    }
+  };
 
   return (
     <form>
@@ -81,12 +101,13 @@ function RegisterUser() {
 
       <button
         disabled={ disabled }
-        onClick={ () => console.log(name, email, password, userType) }
+        onClick={ () => createUser() }
         type="button"
         data-testid="admin_manage__button-register"
       >
         CADASTRAR
       </button>
+      { error && <p data-testid="admin_manage__element-invalid-register">ERROR</p> }
     </form>
   );
 }

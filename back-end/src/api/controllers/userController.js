@@ -18,6 +18,16 @@ const register = async (req, res) => {
   }
 };
 
+const registerByAdm = async (req, res) => {
+  try {
+    if(req.role !== 'administrator') throw new Error();
+    const response = await userService.registerByAdm(req.body);
+    res.status(201).json(response);
+  } catch (error) {
+    res.status(409).json({ error: error.message });
+  }
+}
+
 const getAllSellers = async (_req, res) => {
   try {
     const response = await userService.getAllSellers();
@@ -41,4 +51,5 @@ module.exports = {
   register,
   getAllSellers,
   getAllUsers,
+  registerByAdm,
 };

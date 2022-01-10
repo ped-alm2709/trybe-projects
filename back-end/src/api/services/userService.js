@@ -4,9 +4,9 @@ const fs = require('fs');
 
 const User = require('../../database/models').user;
 
-const createToken = (name, email) => {
+const createToken = (name, email, role) => {
   const key = fs.readFileSync('./jwt.evaluation.key', 'utf-8');
-  const token = jwt.sign({ user: { name, email } }, key);
+  const token = jwt.sign({ user: { name, email, role } }, key);
   return token;
 };
 
@@ -16,23 +16,33 @@ const login = async ({ email, password }) => {
     if (!user) throw new Error('Usuário ou senha inválidos');
 
     const { name, role } = user;
-
-    const token = createToken(name, email);
+    const token = createToken(name, email, role);
 
     return { name, email, role, token };
 };
 
-const register = async ({ email, name, password, role = 'customer' }) => {
+const register = async ({ email, name, password }) => {
     const userEmail = await User.findOne({ where: { email } });
     const userName = await User.findOne({ where: { name } });
 
     if (userEmail || userName) throw new Error('Usuário cadastrado');
   
-    User.create({ email, role, name, password: md5(password) });
+    User.create({ email, role: 'customer', name, password: md5(password) });
   
-    const token = createToken(name, email);
+    const token = createToken(name, email, 'customer');
     return { name, email, role: 'customer', token };
 };
+
+const registerByAdm = async ({ email, name, password, role }) => {
+  const userEmail = await User.findOne({ where: { email } });
+  const userName = await User.findOne({ where: { name } });
+
+  if (userEmail || userName) throw new Error('Usuário cadastrado');
+
+  User.create({ email, role, name, password: md5(password) });
+  
+  return { name, email, role };
+}
 
 const getAllSellers = async () => User.findAll({ where: { role: 'seller' } });
 
@@ -49,4 +59,5 @@ module.exports = {
   register,
   getAllSellers,
   getAllUsers,
+  registerByAdm,
 };
