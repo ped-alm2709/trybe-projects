@@ -20,6 +20,8 @@ function CustomerOrders() {
     return response;
   };
 
+  console.log(userObj);
+
   const renderOrders = () => {
     const render = sales
       .map((order) => <OrderCardSeller key={ order.id } order={ order } />);

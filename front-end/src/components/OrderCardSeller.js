@@ -26,12 +26,12 @@ function OrderCardSeller(props) {
 
   return (
     <div>
-      <Link to={ `/seller/orders/${orderNum}` }>
+      <Link to={ `/seller/orders/${id}` }>
         <div>
           <h3
             data-testid={ `seller_orders__element-order-id-${id}` }
           >
-            {`Pedido ${orderNum}`}
+            {`Pedido ${id}`}
           </h3>
         </div>
         <div>
