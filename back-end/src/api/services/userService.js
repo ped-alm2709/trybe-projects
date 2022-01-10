@@ -42,7 +42,7 @@ const registerByAdm = async ({ email, name, password, role }) => {
   User.create({ email, role, name, password: md5(password) });
   
   return { name, email, role };
-}
+};
 
 const getAllSellers = async () => User.findAll({ where: { role: 'seller' } });
 
