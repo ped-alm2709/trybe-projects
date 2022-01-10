@@ -21,7 +21,8 @@ function CustomerOrders() {
   };
 
   const renderOrders = () => {
-    const render = sales.map((order) => <OrderCardSeller key={ order.id } order={ order } />);
+    const render = sales
+      .map((order) => <OrderCardSeller key={ order.id } order={ order } />);
     return render;
   };
 

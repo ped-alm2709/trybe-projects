@@ -1,27 +1,27 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function OrderCardSeller(props) {
   const { order } = props;
-  const { 
+  const {
     id,
     saleDate,
     totalPrice,
     status,
     deliveryAddress,
     deliveryNumber,
-} = order;
+  } = order;
 
   const dateConvert = (completeDate) => {
     const dateModif = completeDate.split('T')[0];
     const [year, month, day] = dateModif.split('-');
     return `${day}/${month}/${year}`;
-  }
+  };
 
   const convertPrice = (price) => {
     const convert = price.replace(/\./, ',');
-    return convert
+    return convert;
   };
 
   return (
