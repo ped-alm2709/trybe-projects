@@ -11,12 +11,14 @@ function CustomerOrders() {
   const API_URL = 'http://localhost:3001/';
 
   const getSales = async () => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const response = await axios.get(`${API_URL}sales`, {
-      headers: {
-        Authorization: token,
-      },
-    });
+    const { token, role } = JSON.parse(localStorage.getItem('user'));
+    const API_SELLER = 'seller/';
+    const response = await axios
+      .get(`${API_URL}${role === 'seller' ? API_SELLER : ''}sales`, {
+        headers: {
+          Authorization: token,
+        },
+      });
     return response;
   };
 

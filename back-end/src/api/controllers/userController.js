@@ -27,8 +27,18 @@ const getAllSellers = async (_req, res) => {
   }
 };
 
+const getAllUsers = async (_req, res) => {
+  try {
+    const response = await userService.getAllUsers();
+    res.status(201).json(response);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   login,
   register,
   getAllSellers,
+  getAllUsers,
 };

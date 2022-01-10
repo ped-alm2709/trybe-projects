@@ -22,13 +22,13 @@ const login = async ({ email, password }) => {
     return { name, email, role, token };
 };
 
-const register = async ({ email, name, password }) => {
+const register = async ({ email, name, password, role='customer' }) => {
     const userEmail = await User.findOne({ where: { email } });
     const userName = await User.findOne({ where: { name } });
 
     if (userEmail || userName) throw new Error('Usuário cadastrado');
   
-    User.create({ email, role: 'customer', name, password: md5(password) });
+    User.create({ email, role, name, password: md5(password) });
   
     const token = createToken(name, email);
     return { name, email, role: 'customer', token };
@@ -36,8 +36,17 @@ const register = async ({ email, name, password }) => {
 
 const getAllSellers = async () => User.findAll({ where: { role: 'seller' } });
 
+const getAllUsers = async () => { 
+  const users = await User.findAll();
+  const withoutPassword = users
+    .map(({ name, email, role, id }) => ({ name, email, role, id }));
+  const withoutAdmins = withoutPassword.filter(({ role }) => role !== 'administrator');
+  return withoutAdmins;
+};
+
 module.exports = {
   login,
   register,
   getAllSellers,
+  getAllUsers,
 };
