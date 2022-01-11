@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const environment = "test";
+const environment = process.env.NODE_ENV || "test";
 
 const suffix = {
   prod: "",
@@ -35,4 +35,3 @@ module.exports = {
     ...options,
   },
 };
-//
