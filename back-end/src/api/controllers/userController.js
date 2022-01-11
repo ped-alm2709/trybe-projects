@@ -28,7 +28,7 @@ const deleteUser = async (req, res) => {
   } catch (error) {
     res.status(409).json({ error: error.message });
   }
-}
+};
 
 const registerByAdm = async (req, res) => {
   try {
