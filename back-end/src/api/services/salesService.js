@@ -40,8 +40,6 @@ const createSale = async ({ seller, price, address, number, name, status, cart }
   const { id: userId } = await User.findOne({ where: { name } });
   const { id: sellerId } = await User.findOne({ where: { name: seller } });
 
-  console.log(seller);
-
   const drinks = {};
   const product = await Products.findAll();
   product.forEach(({ name: productName, id }) => { drinks[productName] = id; });
