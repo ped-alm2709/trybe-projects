@@ -32,14 +32,16 @@ function OrderDetailSellerHeader(props) {
       <button
         data-testid="seller_order_details__button-preparing-check"
         type="button"
-        disabled
+        name="Preparando"
+        disabled={ status !== 'Pendente' }
       >
         Preparar Pedido
       </button>
       <button
         data-testid="seller_order_details__button-dispatch-check"
         type="button"
-        disabled
+        name="Em Trânsito"
+        disabled={ status !== 'Preparando' }
       >
         Saiu para entrega
       </button>

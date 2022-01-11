@@ -37,7 +37,8 @@ function OrderDetailHeader(props) {
       <button
         data-testid="customer_order_details__button-delivery-check"
         type="button"
-        disabled
+        name="Entregue"
+        disabled={ status.toLowerCase() !== 'em trânsito' }
       >
         Marcar como entregue
       </button>
