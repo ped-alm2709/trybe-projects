@@ -33,6 +33,8 @@ const register = async ({ email, name, password }) => {
     return { name, email, role: 'customer', token };
 };
 
+const deleteUser = async (email) => User.destroy({ where: { email } });
+
 const registerByAdm = async ({ email, name, password, role }) => {
   const userEmail = await User.findOne({ where: { email } });
   const userName = await User.findOne({ where: { name } });
@@ -60,5 +62,5 @@ module.exports = {
   getAllSellers,
   getAllUsers,
   registerByAdm,
+  deleteUser,
 };
-//

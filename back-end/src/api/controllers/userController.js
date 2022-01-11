@@ -18,6 +18,18 @@ const register = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    if (req.role !== 'administrator') throw new Error();
+    const { email } = req.params;
+    console.log(email);
+    await userService.deleteUser(email);
+    res.status(204).send();
+  } catch (error) {
+    res.status(409).json({ error: error.message });
+  }
+}
+
 const registerByAdm = async (req, res) => {
   try {
     if (req.role !== 'administrator') throw new Error();
@@ -52,4 +64,5 @@ module.exports = {
   getAllSellers,
   getAllUsers,
   registerByAdm,
+  deleteUser,
 };
