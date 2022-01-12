@@ -19,7 +19,7 @@ const editSaleStatus = async (status, id) => {
   await Sales.update({ status }, { where: { id } });
   const sale = Sales.findOne({ where: { id } });
   return sale;
-}
+};
 
 const getSaleById = async (id) => {
   const sale = await Sales.findOne({ where: { id } });

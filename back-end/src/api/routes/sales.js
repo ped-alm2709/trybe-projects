@@ -11,6 +11,6 @@ router.post('/', validateToken, createSale);
 router.get('/:id', getSaleById);
 router.get('/', validateToken, getSalesByUser);
 router.get('/seller/:email', getSalesBySeller);
-router.post('/:id', editSaleStatus)
+router.post('/:id', editSaleStatus);
 
 module.exports = router;
