@@ -8,6 +8,8 @@ function Provider({ children }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userType, setUserType] = useState('customer');
+  const [users, setUsers] = React.useState('');
   const [sales, setSales] = useState([]);
   const [userObj, setUserObj] = useState({});
   const [totalProducts, setTotalProducts] = useState({});
@@ -17,9 +19,13 @@ function Provider({ children }) {
     name,
     email,
     password,
+    userType,
+    users,
+    setUsers,
     setName,
     setEmail,
     setPassword,
+    setUserType,
     sales,
     setSales,
     userObj,
