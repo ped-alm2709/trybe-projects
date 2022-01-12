@@ -14,6 +14,8 @@ function OrderDetailMain(props) {
     setOrderDetail,
   } = useContext(ContextRegister);
 
+  const { role } = JSON.parse(localStorage.getItem('user'));
+
   const { removeButton } = props;
 
   const { sales } = orderDetail;
@@ -30,7 +32,6 @@ function OrderDetailMain(props) {
 
   const getSale = async (orderId) => {
     const { data: { response } } = await getSaleId(orderId);
-    console.log(response);
     setOrderDetail(response);
     setLoading(false);
   };
@@ -56,35 +57,35 @@ function OrderDetailMain(props) {
             <tr key={ index }>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-item-number-${index}`
+                  `${role}_order_details__element-order-table-item-number-${index}`
                 }
               >
                 {index + 1}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-name-${index}`
+                  `${role}-order-table-name-${index}`
                 }
               >
                 {product.name}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-quantity-${index}`
+                  `${role}_order_details__element-order-table-quantity-${index}`
                 }
               >
                 {product.quantity}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-table-sub-total-${index}`
+                  `${role}_order_details__element-order-table-sub-total-${index}`
                 }
               >
                 {product.price.replace(/\./, ',')}
               </td>
               <td
                 data-testid={
-                  `customer_order_details__element-order-total-price-${index}`
+                  `${role}_order_details__element-order-total-price-${index}`
                 }
               >
                 {priceTotal(product.price, product.quantity)}
@@ -94,7 +95,7 @@ function OrderDetailMain(props) {
         </tbody>
       </table>
       <p
-        data-testid="customer_order_details__element-order-total-price"
+        data-testid={ `${role}_order_details__element-order-total-price` }
       >
         {orderDetail && orderDetail.sale.totalPrice.replace(/\./, ',')}
       </p>

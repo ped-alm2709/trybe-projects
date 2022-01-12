@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
+  const user = sequelize.define(
     "user",
     {
       name: DataTypes.STRING,
@@ -10,5 +10,18 @@ module.exports = (sequelize, DataTypes) => {
     { timestamps: false }
   );
 
-  return User;
+  user.associate = (models) => {
+    user.hasMany(models.sales, {
+      foreignKey: 'user_id',
+      as: 'userBuys',
+    });
+
+    user.hasMany(models.sales, {
+      foreignKey: 'seller_id',
+      as: 'sellerSales',
+    });
+  };
+
+  return user;
 };
+//

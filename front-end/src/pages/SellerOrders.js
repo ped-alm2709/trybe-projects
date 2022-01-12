@@ -11,13 +11,13 @@ function CustomerOrders() {
   const API_URL = 'http://localhost:3001/';
 
   const getSales = async () => {
-    const { token } = JSON.parse(localStorage.getItem('user'));
-    const response = await axios.get(`${API_URL}sales`, {
+    const { token, email } = JSON.parse(localStorage.getItem('user'));
+    const { data } = await axios.get(`${API_URL}sales/seller/${email}`, {
       headers: {
         Authorization: token,
       },
     });
-    return response;
+    return data;
   };
 
   const renderOrders = () => {
@@ -28,8 +28,7 @@ function CustomerOrders() {
 
   const fetchSales = async () => {
     const salesFetch = await getSales();
-    const salesData = salesFetch.data.response;
-    setSales(salesData);
+    setSales(salesFetch);
     setIsLoading(false);
   };
 
