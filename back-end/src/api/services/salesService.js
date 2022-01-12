@@ -15,6 +15,12 @@ const getSalesBySeller = async (email) => {
   return sales;
 };
 
+const editSaleStatus = async (status, id) => {
+  await Sales.update({ status }, { where: { id } });
+  const sale = Sales.findOne({ where: { id } });
+  return sale;
+}
+
 const getSaleById = async (id) => {
   const sale = await Sales.findOne({ where: { id } });
   const seller = await User.findOne({ where: { id: sale.sellerId } });
@@ -69,5 +75,6 @@ module.exports = {
   getSalesByUser,
   getSaleById,
   getSalesBySeller,
+  editSaleStatus,
 };
 //

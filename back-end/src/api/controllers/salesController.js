@@ -9,6 +9,17 @@ const createSale = async (req, res) => {
   }
 };
 
+const editSaleStatus = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    const response = await salesService.editSaleStatus(status, id);
+    res.status(201).json({ response });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 const getSalesByUser = async (req, res) => {
   try {
     const user = req.userId;
@@ -44,4 +55,5 @@ module.exports = {
   getSalesByUser,
   getSaleById,
   getSalesBySeller,
+  editSaleStatus,
 };
