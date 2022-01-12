@@ -16,7 +16,7 @@ export default function Navbar() {
     history.push('/login');
   };
 
-  if (user.role === 'administrador') {
+  if (user.role === 'administrator') {
     return (
       <div>
         <div>
