@@ -5,7 +5,13 @@ const SalesProducts = require('../../database/models').salesProducts;
 
 const getSalesByUser = async (user) => {
   const { id } = await User.findOne({ where: { email: user } });
-  const sales = Sales.findAll({ where: { userId: id } });
+  const sales = await Sales.findAll({ where: { userId: id } });
+  return sales;
+};
+
+const getSalesBySeller = async (email) => {
+  const { id } = await User.findOne({ where: { email } });
+  const sales = await Sales.findAll({ where: { sellerId: id } });
   return sales;
 };
 
@@ -62,5 +68,6 @@ module.exports = {
   createSale,
   getSalesByUser,
   getSaleById,
+  getSalesBySeller,
 };
 //
