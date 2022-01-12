@@ -1,6 +1,9 @@
 const router = require('express').Router();
 
-const { createSale, getSalesByUser, getSaleById, getSalesBySeller } = require('../controllers/salesController');
+const { createSale, 
+    getSalesByUser,
+    getSaleById, 
+    getSalesBySeller } = require('../controllers/salesController');
 const { validateToken } = require('../middlewares/validateToken');
 
 router.post('/', validateToken, createSale);
