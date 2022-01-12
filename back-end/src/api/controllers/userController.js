@@ -22,7 +22,6 @@ const deleteUser = async (req, res) => {
   try {
     if (req.role !== 'administrator') throw new Error();
     const { email } = req.params;
-    console.log(email);
     await userService.deleteUser(email);
     res.status(204).send();
   } catch (error) {
