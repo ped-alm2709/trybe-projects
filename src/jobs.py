@@ -16,7 +16,9 @@ def read(path):
     list
         List of rows as dicts
     """
+    # encoding="iso-8859-1" = codificação que caracteriza o pt-br
     with open(path, "r", encoding="iso-8859-1") as file:
         read_file = csv.DictReader(file)
         dict_list = list(read_file)
+        print(dict_list[0])
     return dict_list
