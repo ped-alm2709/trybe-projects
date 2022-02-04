@@ -24,6 +24,8 @@ class Inventory:
                 reports_list = json.load(file)
                 data = reports_list
             return data
+
+        # https://www.youtube.com/watch?v=1FBckemKu1Q xml to dict reference
         elif extension == 'xml':
             data = []
             with open(path, 'r', encoding='utf-8') as file:
