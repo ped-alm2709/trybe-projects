@@ -24,6 +24,3 @@ class Inventory:
             return SimpleReport.generate(cls.read_file(path))
         else:
             return CompleteReport.generate(cls.read_file(path))
-
-
-Inventory.import_data('inventory_report/data/inventory.csv', 'simples')
