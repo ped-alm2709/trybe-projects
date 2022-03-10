@@ -72,19 +72,11 @@ class AnalyzeLog():
         return min(self.days_in_operation, key=self.days_in_operation.get)
 
 
-# Reading CSV file:
-# https://www.geeksforgeeks.org/reading-csv-files-in-python/
-def csv_reader(path_file):
-    with open(path_file, mode='r') as file:
-        data_log = csv.reader(file)
-        return [row for row in data_log]
-
-
-# Writing TXT file:
-# https://www.geeksforgeeks.org/reading-writing-text-files-python/
 def analyze_log(path_to_file):
     analyze_class = AnalyzeLog()
 
+# Reading CSV file:
+# https://www.geeksforgeeks.org/reading-csv-files-in-python/
     with open(path_to_file) as file_csv:
         data_log = csv.reader(file_csv)
         for customer, order, day in data_log:
@@ -97,5 +89,7 @@ def analyze_log(path_to_file):
         f"{analyze_class.days_never_visited('joao')}\n"
     ]
 
+# Writing TXT file:
+# https://www.geeksforgeeks.org/reading-writing-text-files-python/
     with open('./data/mkt_campaign.txt', 'w') as file_txt:
         file_txt.writelines(data_report)
