@@ -31,6 +31,9 @@ class AnalyzeLog():
 
 # Max value dictionary:
 # https://datagy.io/python-get-dictionary-key-with-max-value/
+
+# ValueError: I/O operation on closed file:
+# https://pt.stackoverflow.com/questions/364156/erro-de-valueerror-i-o-operation-on-closed-file-ao-gerar-csv-com-python
     def most_requested_dish(self, customer):
         customer_log = dict()
         for order, _ in self.orders_report[customer]:
