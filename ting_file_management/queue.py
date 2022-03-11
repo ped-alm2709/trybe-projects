@@ -1,3 +1,5 @@
+# FIFO Queue
+# https://www.codingem.com/what-is-a-fifo-queue/
 class Queue:
     def __init__(self):
         """Inicialize sua estrutura aqui"""
