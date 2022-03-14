@@ -11,6 +11,7 @@ def response_txt_prototype(path_file):
     }))
 
 
+# Instance parameter: queue implemented in queue.py
 def file_is_ok(path_file, instance):
     file_is_ok = False
     for index in range(len(instance)):
