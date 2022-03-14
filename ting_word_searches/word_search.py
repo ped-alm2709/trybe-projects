@@ -22,12 +22,18 @@ def expected_format_response(word, index, instance, line):
 def exists_word(word, instance):
     all_occurences = list()
     for index in range(len(instance)):
-        response = expected_format_response(word, index, instance, False)
-        if response and len(response['ocorrencias']) != 0:
-            all_occurences.append(response)
+        func_response = expected_format_response(word, index, instance, False)
+        if func_response and len(func_response['ocorrencias']) != 0:
+            all_occurences.append(func_response)
 
     return all_occurences
 
 
 def search_by_word(word, instance):
-    """Aqui irá sua implementação"""
+    result = list()
+    for index in range(len(instance)):
+        func_response = expected_format_response(word, index, instance, True)
+        if func_response and len(func_response['ocorrencias']) != 0:
+            result.append(func_response)
+
+    return result
