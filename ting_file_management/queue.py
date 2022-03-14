@@ -1,17 +1,28 @@
 # FIFO Queue
 # https://www.codingem.com/what-is-a-fifo-queue/
+
+# Deque objects
+# https://docs.python.org/3/library/collections.html
+from collections import deque
+
+
 class Queue:
     def __init__(self):
-        """Inicialize sua estrutura aqui"""
+        self._queue = deque()
 
     def __len__(self):
-        """Aqui irá sua implementação"""
+        return len(self._queue)
 
     def enqueue(self, value):
-        """Aqui irá sua implementação"""
+        return self._queue.append(value)
 
     def dequeue(self):
-        """Aqui irá sua implementação"""
+        if not len(self._queue):
+            return None
+        return self._queue.popleft()
 
     def search(self, index):
-        """Aqui irá sua implementação"""
+        if index < 0 or index >= len(self):
+            raise IndexError()
+        else:
+            return self._queue[index]
